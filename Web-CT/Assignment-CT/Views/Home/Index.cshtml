@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<main>
+    <section class="row" aria-labelledby="aspnetTitle">
+        <h1 id="title">CT Assistant</h1>
+        <p class="lead">CT Assistant is a free web application used to make appointments for patients who need their doctors to view CT scans.</p>
+    </section>
+    <picture>
+        <source media="(max-width:639px)" srcset="~/Images/CT-320px.jpg" />
+        <source media="(max-width:1279px)" srcset="~/Images/CT-640px.jpg" />
+        <source media="(max-width:3000px)" srcset="~/Images/CT-1280px.jpg" />
+        <img src="~/Images/CT-320px.jpg"
+             alt="Different resolution"/>
+    </picture>
+
+    <div class="row">
+        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
+            <h2 id="gettingStartedTitle">Getting started</h2>
+            <p>
+                A computerized tomography (CT) scan combines a series of X-ray images taken from different angles around your body and uses computer processing to create cross-sectional images (slices) of the bones, blood vessels and soft tissues inside your body. CT scan images provide more-detailed information than plain X-rays do.
+            </p>
+            <p><a class="btn btn-outline-dark" href="https://www.nibib.nih.gov/science-education/science-topics/computed-tomography-ct">Learn more &raquo;</a></p>
+        </section>
+        <section class="col-md-4" aria-labelledby="librariesTitle">
+            <h2 id="librariesTitle">Suitable patient</h2>
+            <p>CT scans may be performed to help diagnose tumors, investigate internal bleeding, or check for other internal injuries or damage. CT can also be used for a tissue or fluid biopsy.</p>
+            <p><a class="btn btn-outline-dark" href="https://www.hopkinsmedicine.org/health/treatment-tests-and-therapies/computed-tomography-ct-scan#:~:text=CT%20scans%20may%20be%20performed,a%20tissue%20or%20fluid%20biopsy.">Learn more &raquo;</a></p>
+        </section>
+        <section class="col-md-4" aria-labelledby="hostingTitle">
+            <h2 id="hostingTitle">Protect your Body </h2>
+            <p>Radiation sounds scary, but medical scans that use radiation are not scary at all – in fact, these scans actually help diagnose and treat hurt, rather than cause it. If your doctor has recommended a CT scan, trust that the benefit of getting the scan outweighs any of the negatives that come with it.  </p>
+            <p><a class="btn btn-outline-dark" href="https://sjra.com/how-do-you-protect-your-body-from-radiation-during-a-ct-scan/">Learn more &raquo;</a></p>
+        </section>
+    </div>
+</main>

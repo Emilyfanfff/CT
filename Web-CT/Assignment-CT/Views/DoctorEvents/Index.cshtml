@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Assignment_CT.Models.DoctorEvents>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table" id="datatable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EventId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Booked)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndTime)
+                </td>
+                <td>
+                    <input type="checkbox" @(item.Booked ? "checked='checked'" : "") disabled="disabled" />
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.EventId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.EventId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.EventId })
+                </td>
+            </tr>
+        }
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EventId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndTime)
+            </th>
+            <th></th>
+        </tr>
+    </tfoot>
+
+</table>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/datatable")
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            let table = new DataTable('#datatable');
+
+        })
+    </script>
+}

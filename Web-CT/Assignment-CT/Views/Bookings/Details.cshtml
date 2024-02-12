@@ -1,0 +1,150 @@
+﻿@model Assignment_CT.Models.Booking
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <h4>Booking</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.AppointmentDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AppointmentDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FirstName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.LastName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.LastName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Image)
+            </dt>
+
+            <dd>
+                @if (Model.Image != null && Model.Image.Length > 0)
+                {
+                    <img src="data:image/png;base64,@Convert.ToBase64String(Model.Image)" alt="Uploaded Image" width="100" height="100" />
+                }
+                else
+                {
+                    <text>No image available</text>
+                }
+            </dd>
+
+        </dl>
+        <p>
+            @if (User.IsInRole("admin") || User.IsInRole("Patient"))
+            {
+                @Html.ActionLink("Edit", "Edit", new { id = Model.BookingId })
+            }
+
+            @Html.ActionLink("Edit Result", "EditResult", new { id = Model.BookingId })
+
+
+            @Html.ActionLink("Back to List", "Index")
+        </p>
+    </div>
+
+    <div class="col-md-4">
+        <h4>Result</h4>
+        <hr />
+        @if (Model.Result != null)
+        {
+            <div class="col-md-4">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Result.ResultDate)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Result.ResultDate)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Result.ResultDescription)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Result.ResultDescription)
+                    </dd>
+
+                </dl>
+            </div>
+        }
+        else
+        {
+            <div class="col-md-6">
+                <p>No result available for this booking, hence rating cannot be done.</p>
+            </div>
+        }
+    </div>
+    <div class="col-md-4">
+        <h4>Rating</h4>
+        <hr />
+        @if (Model.Rated == true)
+        {
+            <div class="col-md-4">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Rating)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Rating)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.RatingComment)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.RatingComment)
+                    </dd>
+
+                </dl>
+            </div>
+        }
+        else
+        {
+            <div class="col-md-6">
+                <p>No Rating available for this booking.</p>
+            </div>
+        }
+    </div>
+
+
+</div>

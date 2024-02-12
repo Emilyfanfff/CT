@@ -1,0 +1,113 @@
+﻿@model IEnumerable<Assignment_CT.Models.Clinics>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
+
+
+<dev id="container">
+    <div id="map"></div>
+    <div id="sidebar"></div>
+</dev>
+
+<hr />
+
+<h3>Get your way</h3>
+
+<div class="row" style="margin:20px">
+    <label for="start" class="col-md-2 control-label">Start</label>
+    <input type="text" id="start" class="col-md-4 form-control" />
+
+    <label for="end" class="col-md-2 control-label">End</label>
+    <select id="end" class="col-md-Ц form-control">
+        @foreach (var clinic in Model)
+        {
+            <option value="@clinic.ClinicAddress">@clinic.ClinicName</option>
+        }
+    </select>
+    <label for="mode" class="col-md-2 control-label">Travel</label>
+    <select id="mode" class="col-md-Ц form-control">
+        <option value="DRIVING">Driving</option>
+        <option value="WALKING">Walking</option>
+        <option value="BICYCLING">Bicycling</option>
+        <option value="TRANSIT">Transit</option>
+    </select>
+</div>
+<div class="row" style="margin:20px">
+    <input type="submit" value="Go" class="btn btn-default col-md-4 col-md-offset-4" id="get-direction" style="margin:auto" />
+</div>
+
+
+<hr />
+
+<table class="table" id="datatable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ClinicName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClinicAddress)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClinicName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClinicAddress)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.ClinicId })
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <span> | </span>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ClinicId })
+                        <span> | </span>
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ClinicId })
+                    }
+
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ClinicName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClinicAddress)
+            </th>
+            <th></th>
+        </tr>
+    </tfoot>
+</table>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/datatable")
+@Scripts.Render("~/bundles/map")
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            let table = new DataTable('#datatable');
+
+        })
+    </script>
+    <script src ="https://maps.googleapis.com/maps/api/js?key=AIzaSyCAsxMlS3JcZJrL9UjmdiJQGAplAVFCvpk&callback=initMap&libraries=places&v=weekly" async></script>
+}

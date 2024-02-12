@@ -1,0 +1,151 @@
+﻿@model Assignment_CT.Models.Booking
+@{
+    ViewBag.Title = "Rate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Rate</h2>
+<div class="row">
+    <div class="col-md-4">
+        <h4>Booking Details</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.AppointmentDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AppointmentDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FirstName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.LastName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.LastName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Image)
+            </dt>
+
+            <dd>
+                @if (Model.Image != null && Model.Image.Length > 0)
+                {
+                    <img src="data:image/png;base64,@Convert.ToBase64String(Model.Image)" alt="Uploaded Image" width="100" height="100" />
+                }
+                else
+                {
+                    <text>No image available</text>
+                }
+            </dd>
+
+        </dl>
+    </div>
+
+
+    <div class="col-md-8">
+
+        @if (Model.Result != null)
+        {
+            <div class="row">
+                <div class="col-md-4">
+                    <h4>Result Details</h4>
+                    <hr />
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Result.ResultDate)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Result.ResultDate)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Result.ResultDescription)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Result.ResultDescription)
+                        </dd>
+
+                    </dl>
+                </div>
+
+
+                <div class="col-md-4">
+                    <h4>Rating</h4>
+                    <hr />
+                    @using (Html.BeginForm("Rate", "Bookings", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <div class="row">
+                            <div class="form-group">
+                                <input type="hidden" name="BookingId" value="@Model.BookingId" />
+
+                                <div class="rate">
+                                    <input type="radio" id="star5" name="rate" value="5" />
+                                    <label for="star5" title="text">5 stars</label>
+                                    <input type="radio" id="star4" name="rate" value="4" />
+                                    <label for="star4" title="text">4 stars</label>
+                                    <input type="radio" id="star3" name="rate" value="3" />
+                                    <label for="star3" title="text">3 stars</label>
+                                    <input type="radio" id="star2" name="rate" value="2" />
+                                    <label for="star2" title="text">2 stars</label>
+                                    <input type="radio" id="star1" name="rate" value="1" />
+                                    <label for="star1" title="text">1 star</label>
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.RatingComment, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.TextAreaFor(model => model.RatingComment, new { @class = "form-control", rows = "10", cols = "50" })
+                                    @Html.ValidationMessageFor(model => model.RatingComment, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md=offest-2 col-md-10">
+                                    <input type="submit" value="Rate" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+         }
+         else
+         {
+         <div class="col-md-6">
+             <p>No result available for this booking, hence rating cannot be done.</p>
+         </div>
+         }
+
+    </div>
+
+

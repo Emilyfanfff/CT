@@ -1,0 +1,59 @@
+﻿
+@model IEnumerable<Assignment_CT.Models.Booking>
+<style>
+    thead {
+        background-color: black;
+        color: white;
+    }
+
+    table {
+        border: 1px solid black;
+    }
+
+    td, th {
+        padding: 5px;
+        font-size: 14px;
+    }
+</style>
+<table class="table table-bordered table-striped" border="1" style="border-color: black">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AppointmentDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            @if (User.IsInRole("Patient"))
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.Rated)
+                </th>
+
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.AppointmentDate</td>
+                <td>@item.FirstName</td>
+                <td>@item.LastName</td>
+                <td>@item.Email</td>
+                @if (User.IsInRole("Patient"))
+                {
+                    <td>
+                        <input type="checkbox" @(item.Rated ? "checked='checked'" : "") disabled="disabled" />
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>

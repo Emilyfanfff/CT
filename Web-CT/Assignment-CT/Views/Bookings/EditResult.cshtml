@@ -1,0 +1,74 @@
+﻿@model Assignment_CT.Models.Result
+@{
+    ViewBag.Title = "EditResult";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit Result</h2>
+
+<div class="row">
+    <!-- Left Column: Form -->
+    <div class="col-md-8">
+        @using (Html.BeginForm("EditResult", "Bookings", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            if (@ViewBag.Result != null)
+            {
+                <div class="alert alert-info">@ViewBag.Result</div>
+            }
+            <div class="form-group">
+                @Html.LabelFor(model => model.BookingId)
+                @Html.TextBoxFor(model => model.BookingId, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email)
+                @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.FirstName)
+                @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.LastName)
+                @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DoctorName)
+                @Html.TextBoxFor(model => model.DoctorName, new { @class = "form-control" })
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ResultDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.ResultDescription, new { @class = "form-control", rows = "10" })
+                    @Html.ValidationMessageFor(model => model.ResultDescription, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Attachment")
+                <input type="file" name="fileAttachment" class="form-control" />
+            </div>
+
+            <input type="submit" value="Send" class="btn btn-default" />
+        }
+    </div>
+
+    <!-- Right Column: Image -->
+    <div class="col-md-4">
+        @if (ViewBag.ImageData != null)
+        {
+            <div class="form-group">
+                <label>Booking Image:</label>
+                <img src="@ViewBag.ImageData" alt="Booking Image" class="img-responsive" />
+            </div>
+        }
+    </div>
+</div>
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }
+

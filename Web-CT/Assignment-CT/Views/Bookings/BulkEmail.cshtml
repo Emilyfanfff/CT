@@ -1,0 +1,63 @@
+﻿
+@model List<Assignment_CT.Models.CheckboxViewModel>
+@{
+    ViewBag.Title = "BulkEmail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>BulkEmail</h2>
+
+<h2>Select Bookings for Bulk Email</h2>
+
+@using (Html.BeginForm("BulkEmail", "Bookings", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    if (@ViewBag.Result != null)
+    {
+        <div class="alert alert-info">@ViewBag.Result</div>
+    }
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Select</th>
+                <th>Email</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>
+                        @Html.HiddenFor(m => Model[i].UserId)
+                        @Html.HiddenFor(m => Model[i].DoctorName)
+                        @Html.CheckBoxFor(m => Model[i].IsChecked)
+                    </td>
+                    <td>
+                        @Html.HiddenFor(m => Model[i].Email)
+                        @Html.DisplayFor(m => Model[i].Email)
+                    </td>
+                    <td>
+                        @Html.HiddenFor(m => Model[i].FirstName)
+                        @Html.DisplayFor(m => Model[i].FirstName)
+                    </td>
+                    <td>
+                        @Html.HiddenFor(m => Model[i].LastName)
+                        @Html.DisplayFor(m => Model[i].LastName)
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
+    <textarea name="emailContent" placeholder="Type your email content here..." rows="10" cols="50"></textarea>
+    <div class="form-group">
+        @Html.Label("Attachment")
+        <input type="file" name="fileAttachment" class="form-control" />
+    </div>
+
+    <input type="submit" value="Send Bulk Email" />
+}
+
